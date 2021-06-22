@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 import FinanceDataReader as fdr
 import torch
 import torch.nn as nn
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import numpy as np
 import json
 
@@ -131,7 +131,7 @@ def main():
         with torch.no_grad():
             y_pred = model(x_pred.float()).numpy()
         y_pred = std_postprocessing(y_pred)
-    result = {"date" : datetime.today(), "result" : y_pred}
+    result = {"date" : date.today(), "result" : y_pred}
     return jsonify(result)
 
 
