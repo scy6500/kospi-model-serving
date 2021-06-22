@@ -53,12 +53,11 @@ def load_model():
     with open('model/model_info.json', 'r') as f:
         model_info = json.load(f)
     f.close()
-    checkpoint = torch.load("model/model.pt", map_location=device)
     if model_info["model"] == "lstm":
         model = LSTM(input_dim=6, hidden_dim=6, output_dim=1, num_layers=model_info["stack"])
     elif model_info["model"] == "gru":
         model = GRU(input_dim=6, hidden_dim=6, output_dim=1, num_layers=model_info["stack"])
-    model.load_state_dict(checkpoint['model_state_dict'])
+    model.load_state_dict(torch.load("model/model.pt", map_location=device))
     return model
 
 
